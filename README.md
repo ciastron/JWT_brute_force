@@ -8,3 +8,6 @@ This project aims to brute force a JWT token that is signed with the algorithm H
 2. Change directory: `cd JWT_brute_force`
 3. Activate a virtual environment: `python3 -m venv ./venv && source venv/bin/activate` (to deactivate it `deactivate`)
 4. Install all the requirements: `pip3 install -r requirements.txt`
+
+## Usage
+Exastive password list can be found [here](https://github.com/danielmiessler/SecLists).
