@@ -1,12 +1,7 @@
-import binascii
-import hmac
-import hashlib
-import base64
 import sys
 from os.path import exists
 from optparse import OptionParser
-from tqdm import tqdm
-import time
+from files.bruteForce import JWT_brute_force
 
 parser = OptionParser()
 parser.add_option("-t", "--token", dest="JWT", type="string",
@@ -37,19 +32,8 @@ else:
         exit(0)
     wordlist = options.wordlist
 
-password = ""
-with open(wordlist) as file:
-    lines = file.readlines()
-    for line in tqdm(lines):
-        line = line.rstrip()
-        dig = hmac.new(line.encode('utf-8'), msg=msg, digestmod=hashlib.sha256).digest()
-        dig64 = str(base64.b64encode(dig).decode('utf-8')).replace("=","").replace("+","-").replace("/","_")
-        if dig64==digest:
-            password = str(line)
-            break
-
-if password == "":
-    print("Password not found")
+res = JWT_brute_force(msg, digest, wordlist)
+if res:
+    print("Password found: " + res)
 else:
-    print("Password found: " + password)
-
+    print("Password not found")
